@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Historic Data Analysis</title>
+		<link rel="stylesheet" href="http://cdn.pydata.org/bokeh/release/bokeh-{{bv}}.min.css" type="text/css" />
+		<script type="text/javascript" src="http://cdn.pydata.org/bokeh/release/bokeh-{{bv}}.min.js"></script>
+		<link rel="stylesheet" href="/static/style.css" type="text/css">
+		{{script|safe}}
+	</head>
+	<body>
+	<h2><center><font color="#FFFFF" size=6>Stock Price Prediction And Forecasting Using Arima Model</font></center></h2>
+
+	</br>
+	</br>
+	</br>
+    <style>
+		body{
+			background: rgba(93,84,240,0.5);
+  background: -webkit-linear-gradient(left, rgba(0,168,255,0.5), rgba(185,0,255,0.5));
+  background: -o-linear-gradient(left, rgba(0,168,255,0.5), rgba(185,0,255,0.5));
+  background: -moz-linear-gradient(left, rgba(0,168,255,0.5), rgba(185,0,255,0.5));
+  background: linear-gradient(left, rgba(0,168,255,0.5), rgba(185,0,255,0.5));
+		}
+	</style>
+
+		<div class=page>
+			<div align="center">{{div|safe}}</div>
+
+
+
+		</div>
+        <div align="center"><img  src="/static/results/livechart.png" width="900" height="500"></div>
+		
+		<div align="center"><img src="/static/results/Forecast.png" width="900" height="500"></div>
+		<div style="text-align: center;">
+			<h3>FORECASTED VALUES FOR THE NEXT 10 DAYS</h3>
+
+			{% for f in frcst_lst %}
+			{{f}}<br>
+			{% endfor %}
+		</div>
+	</body>
+</html>

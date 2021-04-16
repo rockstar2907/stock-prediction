@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Stock Prediction</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->	
+	<link rel="icon" type="image/png" href="/static/images/icons/stock-market-icon-png-28.jpg"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/static/vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/static/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/static/fonts/iconic/css/material-design-iconic-font.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/static/vendor/animate/animate.css">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="/static/vendor/css-hamburgers/hamburgers.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/static/vendor/animsition/css/animsition.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/static/vendor/select2/select2.min.css">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="/static/vendor/daterangepicker/daterangepicker.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/static/css/util.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/main.css">
+<!--===============================================================================================-->
+</head>
+<body>
+	
+	
+	<div class="container-login100" style="background-image: url('/static/images/pexels-lorenzo-241544.jpg');">
+
+        <h2 style="text-align:center;color: white;font-weight: bolder;text-shadow: 2px 2px grey;font-family: 'Lovelo';font-size: 50px;">A Prediction Approach For Stock Market Volatility Based On Time Series Data</h3>
+		<div style="background: white;padding: 10px;border-radius: 30px;text-align: center;">
+			<script language="javascript">
+                function check(form)
+                {
+                
+                    if(form.stockname.value == "")
+                    {
+                        alert("Error Enter Stock Name")
+                        return false;
+                
+                    }
+                
+                    if(form.startdate.value == "")
+                    {
+                        alert("Error Choose Start Date")
+                        return false;
+                
+                    }
+                    if(form.enddate.value == "")
+                    {
+                        alert("Error Choose End Date")
+                        return false;
+                
+                    }
+                    else
+                    {
+                        a=form.startdate.value;
+                        b=form.enddate.value;
+                        dt1 = new Date(a);
+                        dt2 = new Date(b);
+                        c=Math.floor((Date.UTC(dt2.getFullYear(), dt2.getMonth(), dt2.getDate()) - Date.UTC(dt1.getFullYear(), dt1.getMonth(), dt1.getDate()) ) /(1000 * 60 * 60 * 24));
+                        var today = new Date();
+                        var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+                        c1=Math.floor((Date.UTC(today.getFullYear(), today.getMonth(), today.getDate()) - Date.UTC(dt1.getFullYear(), dt1.getMonth(), dt1.getDate()) ) /(1000 * 60 * 60 * 24));
+                        c2=Math.floor((Date.UTC(today.getFullYear(), today.getMonth(), today.getDate()) - Date.UTC(dt2.getFullYear(), dt2.getMonth(), dt2.getDate()) ) /(1000 * 60 * 60 * 24));
+                        if (c<0 || c1<0 || c2<0)
+                        {
+                            alert("ERROR, Choose Start date and End Date correctly")
+                            return false;
+                        }
+                        else
+                        {
+                            return true;
+                        }
+                
+                    }
+                }
+                
+                </script>
+                <style>
+                    table{
+                        margin: 5px;
+                    }
+                    tr{
+                        text-align: center;
+                        font-weight: bold;
+                        padding: 5px;
+                        border:1px solid black;
+                        padding: 5px;
+                        margin: 5px;
+                        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+                    }
+                </style>
+                <form  method="POST">
+                <table  bgcolor="FFFFFF" align="center">
+                <tr>
+                <td colspan=2><center><font size=6><b>Stock Details</b></font></center></td>
+                </tr>
+                
+                <tr>
+                <td>Stock Name:</td>
+                {% csrf_token %}
+                <td><select name="stockname">
+                        <option value="ADANIPORTS">Adani Ports and Special Economic Zone Ltd.</option>
+                         <option value="ASIANPAINT">Asian Paints Ltd.</option>
+                          <option value="AXISBANK">Axis Bank Ltd.</option>
+                           <option value="BAJAJ-AUTO">Bajaj Auto Ltd.</option>
+                            <option value="BAJFINANCE">Bajaj Finance Ltd.</option>
+                             <option value="BAJAJFINSV">Bajaj Finserv Ltd.</option>
+                              <option value="BPCL">Bharat Petroleum Corporation Ltd.</option>
+                               <option value="BHARTIARTL">Bharti Airtel Ltd.</option>
+                                <option value="INFRATEL">Bharti Infratel Ltd.</option>
+                                 <option value="BRITANNIA">Britannia Industries Ltd.</option>
+                                  <option value="CIPLA">Cipla Ltd.</option>
+                                   <option value="COALINDIA">Coal India Ltd.</option>
+                                    <option value="DRREDDY">Dr. Reddy's Laboratories Ltd.</option>
+                                     <option value="EICHERMOT">Eicher Motors Ltd.</option>
+                                      <option value="GAIL">GAIL (India) Ltd.</option>
+                                       <option value="GRASIM">Grasim Industries Ltd.</option>
+                                        <option value="HCLTECH">HCL Technologies Ltd.</option>
+                                         <option value="HDFCBANK">HDFC Bank Ltd.</option>
+                                          <option value="HEROMOTOCO">Hero MotoCorp Ltd.</option>
+                                           <option value="HINDALCO">Hindalco Industries Ltd.</option>
+                                           <option value="HINDUNILVR">Hindustan Unilever Ltd.</option>
+                         <option value="HDFC">Housing Development Finance Corporation Ltd.</option>
+                          <option value="ICICIBANK">ICICI Bank Ltd.</option>
+                           <option value="ITC">ITC Ltd.</option>
+                            <option value="IBULHSGFIN">Indiabulls Housing Finance Ltd.</option>
+                             <option value="IOC">Indian Oil Corporation Ltd.</option>
+                              <option value="INDUSINDBK">IndusInd Bank Ltd.</option>
+                               <option value="INFY">Infosys Ltd.</option>
+                                <option value="JSWSTEEL">JSW Steel Ltd.</option>
+                                 <option value="KOTAKBANK">Kotak Mahindra Bank Ltd.</option>
+                         <option value="LT">Larsen & Toubro Ltd.</option>
+                          <option value="M&M">Mahindra & Mahindra Ltd.</option>
+                           <option value="MARUTI">Maruti Suzuki India Ltd.</option>
+                            <option value="NTPC">NTPC Ltd.</option>
+                             <option value="ONGC">Oil & Natural Gas Corporation Ltd.</option>
+                              <option value="POWERGRID">Power Grid Corporation of India Ltd.</option>
+                               <option value="RELIANCE">Reliance Industries Ltd</option>
+                                <option value="SBIN">State Bank of India</option>
+                                 <option value="SUNPHARMA">Sun Pharmaceutical Industries Ltd.</option>
+                                  <option value="TCS">Tata Consultancy Services Ltd.</option>
+                                   <option value="TATAMOTORS">Tata Motors Ltd.</option>
+                                    <option value="TATASTEEL">Tata Steel Ltd.</option>
+                                     <option value="TECHM">Tech Mahindra Ltd.</option>
+                                      <option value="TITAN">Titan Company Ltd.</option>
+                                       <option value="UPL">UPL Ltd.</option>
+                                        <option value="ULTRACEMCO">UltraTech Cement Ltd.</option>
+                                         <option value="VEDL">Vedanta Ltd.</option>
+                                          <option value="WIPRO">Wipro Ltd.</option>
+                                           <option value="YESBANK">Yes Bank Ltd.</option>
+                                            <option value="ZEEL">Zee Entertainment Enterprises Ltd.</option>
+                    </select></td>
+                </tr>
+                <br>
+                <tr>
+                <td>Starting Date:</td>
+                <td><input type="date" size=25 name="startdate"></td>
+                <tr>
+                <td>Ending Date:</td>
+                <td><input type="date" size=25 name="enddate"></td>
+                </tr>
+                
+                <tr>
+                <td><input type="Reset" style="background-color:darkslategrey;color:white;padding: 3px;border-radius: 10px;cursor: pointer;"></td>
+                <td><input type="submit" onclick="return check(this.form)" value="Submit" style="background-color:darkslategrey;color:white;padding: 3px;border-radius: 10px;cursor: pointer;"></td>
+                
+                </tr>
+                
+                </table>
+                </form>
+                <div><a href="/logout" style="background-color: white;font-weight: bold;" size=6>Logout</a>
+                </div>
+</div>
+
+
+	
+<!--===============================================================================================-->
+	<script src="/static/vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+	<script src="/static/vendor/animsition/js/animsition.min.js"></script>
+<!--===============================================================================================-->
+	<script src="/static/vendor/bootstrap/js/popper.js"></script>
+	<script src="/static/vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+	<script src="/static/vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+	<script src="/static/vendor/daterangepicker/moment.min.js"></script>
+	<script src="/static/vendor/daterangepicker/daterangepicker.js"></script>
+<!--===============================================================================================-->
+	<script src="/static/vendor/countdowntime/countdowntime.js"></script>
+<!--===============================================================================================-->
+	<script src="/static/js/main.js"></script>
+
+</body>
+</html>
